@@ -16,26 +16,28 @@ const Response: NextPage = () => {
   const [response, setResponse] = useState("");
   const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(false);
-  const [token, setToken] = useState(null)
+  const [token, setToken] = useState(null);
 
   const loginHandler = async () => {
     setLoading(true);
-    console.log(token)
+    console.log(token);
     try {
-      await axios.post(`http://localhost:8000/api/response/response`, {
-        author: name,
-        response: response,
-        category: category,
-      },
-      {
-        headers: {
-          authorization: `Bearer ${token}`,
+      await axios.post(
+        `https://scared-felicia-bolu1.koyeb.app/api/response/response`,
+        {
+          author: name,
+          response: response,
+          category: category,
         },
-      }
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
       );
-      toast.success("Response saved")
+      toast.success("Response saved");
       setLoading(false);
-      router.push('/')
+      router.push("/");
     } catch (error) {
       setLoading(false);
       toast.error(error.response.data.message);
@@ -43,9 +45,9 @@ const Response: NextPage = () => {
   };
 
   useEffect(() => {
-    const user = JSON.parse(Cookies.get('user'))
-    console.log(user)
-    setToken(user.token)
+    const user = JSON.parse(Cookies.get("user"));
+    console.log(user);
+    setToken(user.token);
   }, []);
 
   return (
